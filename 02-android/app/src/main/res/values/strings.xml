@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">01AppMovilesKM</string>
+    <string name="Texto_saludo">Buenas noches</string>
+    <color name="color_fondo">#B5983F</color>
+    <color name="color_texto">#2303DA</color>
+
+
+    <string-array name="string_array_opciones_dialogo">
+        <item> Lunes </item>
+        <item> Martes </item>
+        <item> Miercoles </item>
+    </string-array>
 </resources>

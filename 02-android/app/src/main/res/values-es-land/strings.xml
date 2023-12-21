@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Texto_saludo">Buenas noches Kevin</string>
+    <color name="color_fondo">#38FF22</color>
+    <color name="color_texto">#CDDC39</color>
+</resources>

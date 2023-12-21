@@ -13,6 +13,13 @@ fun main(){
     var mutable: String = "Kevin";
     mutable="Samir";
 
+    //  val > var
+    // Duck Typing
+    var ejemploVariable = " Kevin Maldonado"
+    val edadEjemplo: Int = 12
+    ejemploVariable.trim()
+    // ejemploVariable = edadEjemplo;
+
     //Variable primitiva
     val nombre: String = "Kevin Maldonado"
     val  sueldo: Double = 1.2
@@ -22,7 +29,8 @@ fun main(){
     //Class Java
     val fechaNacimiento: Date= Date()
 
-    //SWITCH
+    //SWITCH =when
+    //SWITCHuck
     val estadoCivilWhen = "C"
     when (estadoCivilWhen){
         ("C") ->{
@@ -35,6 +43,8 @@ fun main(){
             println("No sabemos")
         }
     }
+
+    // IF else
     val coqueteo = if(estadoCivilWhen =="S") "Si" else "No"
 
     calcularSueldo(10.00)
@@ -51,6 +61,7 @@ fun main(){
 
     calcularSueldo(bonoEspecial = 20.00, sueldo=10.00, tasa=14.00) //Named parameters
 
+    //INSTANCIAS
     val sumaUno = Suma(1,1)
     val sumaDos = Suma(null,1)
     val sumaTres = Suma(1,null)
@@ -59,6 +70,8 @@ fun main(){
     sumaDos.sumar()
     sumaTres.sumar()
     sumaCuatro.sumar()
+
+    //Se puede acceder sin necesidad de crear una instancia del companion obejct
     println(Suma.pi)
     println(Suma.elevarAlCuadrado(2))
     println(Suma.historialSumas)
@@ -78,7 +91,7 @@ fun main(){
         1,2,3,4,5,6,7,8,9,10
     )
     println(arregloDinamico)
-    arregloDinamico.add(11)
+    arregloDinamico.add(11)//Coloca el valor 11 al final del arraylist
     arregloDinamico.add(12)
     println(arregloDinamico)
 
@@ -120,8 +133,7 @@ fun main(){
 
     //Ambas Devuleven falso o verdador
     //OR -> ANY (Agluno cumple?)
-    //AND -> ALL (Todos cumplen?)
-
+    //AND -> ALL (Todos cumplen?
     // V AND V=V / V AND F=F
     // v OR V=V / V OR F=V / F OR F
 
@@ -255,8 +267,7 @@ class Suma( //Constructor primario Suma
         agregarHistorial(total)
         return total
     }
-    companion object { // Atributos y Metodos "Compartidos"
-        // entre las instancias
+    companion object { // Atributos y Metodos "Compartidos" // entre las instancias
         val pi = 3.14
         fun elevarAlCuadrado(num: Int): Int {
             return num * num
