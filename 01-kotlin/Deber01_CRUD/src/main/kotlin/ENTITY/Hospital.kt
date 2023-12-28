@@ -3,14 +3,15 @@ import java.time.LocalDate
 //import java.util.* //To date
 
 data class Hospital(
-    val nombre: String,
-    val capacidadTotal: Int,
-    val ubicacion: String,
-    val fechaFundacion: LocalDate,
-    val serviciosDisponibles: List<String>,
-    val esPublico: Boolean
+    val name: String,
+    val capacityPatient: Int,
+    val ubication: String,
+    val dateFundation: LocalDate,
+    val services: List<String>,
+    val isPublic: Boolean
 ) : Serializable {
     override fun toString(): String {
-        return "Hospital: $nombre, Capacidad: $capacidadTotal, Ubicación: $ubicacion, Fundación: $fechaFundacion, Servicios: $serviciosDisponibles, Público: $esPublico"
+        return "Hospital: $name, Capacidad: $capacityPatient, " +
+                "Ubicación: $ubication, Fundación: $dateFundation, Servicios: $services, Público: $isPublic"
     }
 }

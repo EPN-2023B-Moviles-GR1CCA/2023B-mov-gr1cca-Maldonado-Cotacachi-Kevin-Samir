@@ -3,15 +3,16 @@ import java.math.BigDecimal
 import java.time.LocalDate
 
 data class Paciente(
-    val nombre: String,
-    val edad: Int,
+    val name: String,
+    val age: Int,
     val genero: String,
-    val enfermedad: String,
-    val fechaIngreso: LocalDate,
-    val altura: BigDecimal,
-    val tieneAlergias: Boolean
+    val disease: String,
+    val dateAdmission: LocalDate,
+    val height: BigDecimal,
+    val haveAllergies: Boolean
 ) : Serializable {
     override fun toString(): String {
-        return "Paciente: $nombre, Edad: $edad, Género: $genero, Enfermedad: $enfermedad, Ingreso: $fechaIngreso, Altura: $altura, Alergias: $tieneAlergias"
+        return "Paciente: $name, Edad: $age, Género: $genero, Enfermedad: " +
+                "$disease, Ingreso: $dateAdmission, Altura: $height, Alergias: $haveAllergies"
     }
 }
