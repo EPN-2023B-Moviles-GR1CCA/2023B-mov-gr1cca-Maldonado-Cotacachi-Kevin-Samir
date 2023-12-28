@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "555030101476",
+    "project_id": "b2023-gr1acc-ksmc",
+    "storage_bucket": "b2023-gr1acc-ksmc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:555030101476:android:ca5d327b1ef75f5efe9bf1",
+        "android_client_info": {
+          "package_name": "com.example.a01appmovileskm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDd7lHk2W25y7j227Vzf3XBg8Uyt3Oigms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
