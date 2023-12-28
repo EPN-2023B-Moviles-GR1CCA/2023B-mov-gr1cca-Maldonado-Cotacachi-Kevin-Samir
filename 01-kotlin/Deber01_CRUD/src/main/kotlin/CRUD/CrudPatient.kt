@@ -1,7 +1,7 @@
 import java.io.*
 import java.time.LocalDate
 
-class CRUDPatient(private val filePath: String) {
+class CRUDPatient(private val filePath: String = "patient.txt") {
 
     fun createPatient(patient: Paciente) {
         try {
