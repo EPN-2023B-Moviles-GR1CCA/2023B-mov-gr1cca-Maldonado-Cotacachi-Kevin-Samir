@@ -1,9 +1,13 @@
+package CRUD
+
+import ENTITY.Patient
 import java.io.*
 import java.time.LocalDate
 
+
 class CRUDPatient(private val filePath: String = "patient.txt") {
 
-    fun createPatient(patient: Paciente) {
+    fun createPatient(patient: Patient) {
         try {
             val file = File(filePath)
             val fileWriter = FileWriter(file, true)
@@ -20,8 +24,8 @@ class CRUDPatient(private val filePath: String = "patient.txt") {
         }
     }
 
-    fun readPatients(): List<Paciente> {
-        val patients = mutableListOf<Paciente>()
+    fun readPatients(): List<Patient> {
+        val patients = mutableListOf<Patient>()
 
         try {
             val file = File(filePath)
@@ -44,12 +48,12 @@ class CRUDPatient(private val filePath: String = "patient.txt") {
         return patients
     }
 
-    fun findPatientByName(name: String): Paciente? {
+    fun findPatientByName(name: String): Patient? {
         val patients = readPatients()
         return patients.find { it.name == name }
     }
 
-    fun updatePatient(oldPatient: Paciente, newPatient: Paciente) {
+    fun updatePatient(oldPatient: Patient, newPatient: Patient) {
         val patients = readPatients().toMutableList()
 
         if (patients.remove(oldPatient)) {
@@ -65,7 +69,7 @@ class CRUDPatient(private val filePath: String = "patient.txt") {
         }
     }
 
-    fun deletePatient(patient: Paciente) {
+    fun deletePatient(patient: Patient) {
         val patients = readPatients().toMutableList()
 
         if (patients.remove(patient)) {
@@ -80,9 +84,9 @@ class CRUDPatient(private val filePath: String = "patient.txt") {
         }
     }
 
-    private fun parsePatient(line: String): Paciente {
+    private fun parsePatient(line: String): Patient {
         val parts = line.split(", ")
-        return Paciente(
+        return Patient(
             parts[0].split(": ")[1],
             parts[1].split(": ")[1].toInt(),
             parts[2].split(": ")[1],
@@ -93,7 +97,7 @@ class CRUDPatient(private val filePath: String = "patient.txt") {
         )
     }
 
-    private fun savePatientsToFile(patients: List<Paciente>) {
+    private fun savePatientsToFile(patients: List<Patient>) {
         val file = File(filePath)
         val fileWriter = FileWriter(file, false)
         val bufferedWriter = BufferedWriter(fileWriter)

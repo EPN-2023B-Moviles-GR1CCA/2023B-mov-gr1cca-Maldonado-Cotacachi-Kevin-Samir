@@ -1,8 +1,10 @@
+package ENTITY
+
 import java.io.Serializable
 import java.math.BigDecimal
 import java.time.LocalDate
 
-data class Paciente(
+data class Patient(
     val name: String,
     val age: Int,
     val genero: String,
