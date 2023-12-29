@@ -56,8 +56,10 @@ class CRUDPatient(private val filePath: String = "patient.txt") {
     fun updatePatient(oldPatient: Patient, newPatient: Patient) {
         val patients = readPatients().toMutableList()
 
-        if (patients.remove(oldPatient)) {
-            patients.add(newPatient)
+        val index = patients.indexOfFirst { it.name.equals(oldPatient.name, ignoreCase = true) }
+
+        if (index != -1) {
+            patients[index] = newPatient
             try {
                 savePatientsToFile(patients)
                 println("¡Paciente actualizado exitosamente!")
@@ -68,6 +70,7 @@ class CRUDPatient(private val filePath: String = "patient.txt") {
             println("El paciente a actualizar no fue encontrado.")
         }
     }
+
 
     fun deletePatient(patient: Patient) {
         val patients = readPatients().toMutableList()
@@ -92,7 +95,7 @@ class CRUDPatient(private val filePath: String = "patient.txt") {
             parts[2].split(": ")[1],
             parts[3].split(": ")[1],
             LocalDate.parse(parts[4].split(": ")[1]),
-            parts[5].split(": ")[1].toBigDecimal(),
+            parts[5].split(": ")[1].toDouble(),
             parts[6].split(": ")[1].toBoolean()
         )
     }

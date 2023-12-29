@@ -54,8 +54,10 @@ class CRUDHospital(private val filePath: String = "hospital.txt") {
     fun updateHospital(oldHospital: Hospital, newHospital: Hospital) {
         val hospitals = readHospitals().toMutableList()
 
-        if (hospitals.remove(oldHospital)) {
-            hospitals.add(newHospital)
+        val index = hospitals.indexOfFirst { it.name.equals(oldHospital.name, ignoreCase = true) }
+
+        if (index != -1) {
+            hospitals[index] = newHospital
             try {
                 saveHospitalsToFile(hospitals)
                 println("¡Hospital actualizado exitosamente!")
@@ -67,10 +69,14 @@ class CRUDHospital(private val filePath: String = "hospital.txt") {
         }
     }
 
+
     fun deleteHospital(hospital: Hospital) {
         val hospitals = readHospitals().toMutableList()
 
-        if (hospitals.remove(hospital)) {
+        val index = hospitals.indexOfFirst { it.name.equals(hospital.name, ignoreCase = true) }
+
+        if (index != -1) {
+            hospitals.removeAt(index)
             try {
                 saveHospitalsToFile(hospitals)
                 println("¡Hospital eliminado exitosamente!")
@@ -81,6 +87,7 @@ class CRUDHospital(private val filePath: String = "hospital.txt") {
             println("El hospital a eliminar no fue encontrado.")
         }
     }
+
 
     private fun parseHospital(line: String): Hospital {
         val parts = line.split(", ")

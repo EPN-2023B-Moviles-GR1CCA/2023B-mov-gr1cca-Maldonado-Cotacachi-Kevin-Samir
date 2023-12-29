@@ -6,11 +6,11 @@ import java.time.LocalDate
 
 data class Hospital(
     val name: String,
-    val capacityPatient: Int,
-    val ubication: String,
+    var capacityPatient: Int,
+    var ubication: String,
     val dateFundation: LocalDate,
    // val services: List<String>,
-    val isPublic: Boolean
+    var isPublic: Boolean
 ) : Serializable {
     override fun toString(): String {
         return "Hospital: $name, Capacidad: $capacityPatient, " +

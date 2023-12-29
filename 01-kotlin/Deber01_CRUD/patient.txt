@@ -1,0 +1,2 @@
+Paciente: Kevin, Edad: 12, Género: , Enfermedad: hombre, Ingreso: 1999-11-12, Peso: 52.0, Alergias: false
+Paciente: Samir, Edad: 12, Género: , Enfermedad: kk, Ingreso: 1999-07-24, Peso: 99999.0, Alergias: true
