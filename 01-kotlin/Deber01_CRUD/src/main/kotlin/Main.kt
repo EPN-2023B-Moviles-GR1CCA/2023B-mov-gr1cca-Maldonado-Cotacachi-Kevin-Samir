@@ -83,14 +83,17 @@ fun main() {
                         }
 
                         4 -> {
+
+                            val hospitales = hospitalCRUD.readHospitals()
+                            println("Lista de hospitales disponibles:")
+                            hospitales.forEach { println(it) }
+
                             println("Ingrese el nombre del hospital a actualizar:")
                             val nombreHospital: String = readLine()?.trim() ?: ""
 
                             println("Nombre ingresado: $nombreHospital")
 
-                            val hospitales = hospitalCRUD.readHospitals()
-                            println("Lista de hospitales disponibles:")
-                            hospitales.forEach { println(it) }
+
 
                             val hospitalAActualizar = hospitales.find { it.name.equals(nombreHospital, ignoreCase = true) }
 
@@ -113,8 +116,9 @@ fun main() {
                                         }
                                         2 -> {
                                             println("Ingrese la nueva ubicación del hospital:")
-                                            val nuevaUbicacion = scanner.nextLine()
+                                            val nuevaUbicacion = readLine()?.trim() ?: ""
                                             hospitalAActualizar.ubication = nuevaUbicacion
+
                                         }
                                         3 -> {
                                             println("El hospital es público? (true/false):")
@@ -220,8 +224,13 @@ fun main() {
                             pacienteEncontrado?.let { println(it) }
                         }
                         4 -> {
+                            val pacientes = pacienteCRUD.readPatients()
+                            println("Lista de pacientes:")
+                            pacientes.forEach { println(it) }
+
                             println("Ingrese el nombre del paciente a actualizar:")
                             val nombrePacienteActualizar: String = readLine()?.trim() ?: ""
+
 
                             if (nombrePacienteActualizar.isNotBlank()) {
                                 println("Nombre ingresado: $nombrePacienteActualizar")
@@ -243,17 +252,17 @@ fun main() {
 
                                         when (readLine()?.toIntOrNull() ?: 0) {
                                             1 -> {
-                                                println("Ingrese el nuevo nombre del paciente:")
+                                                println("Ingrese el  nombre del paciente:")
                                                 val nuevoNombre = readLine()?.trim() ?: ""
                                                 pacienteAActualizar.name = nuevoNombre
                                             }
                                             2 -> {
-                                                println("Ingrese la nueva edad del paciente:")
+                                                println("Ingrese la  edad del paciente:")
                                                 val nuevaEdad = readLine()?.toIntOrNull() ?: 0
                                                 pacienteAActualizar.age = nuevaEdad
                                             }
                                             3 -> {
-                                                println("Ingrese el nuevo género del paciente:")
+                                                println("Ingrese el género del paciente:")
                                                 val nuevoGenero = readLine()?.trim() ?: ""
                                                 pacienteAActualizar.gender = nuevoGenero
                                             }
@@ -283,7 +292,10 @@ fun main() {
                                         }
                                     }
                                     println("Paciente después de la actualización: $pacienteAActualizar")
-                                    pacienteCRUD.updatePatient(pacienteAActualizar, pacienteAActualizar)
+                                    // Actualizar la lista de pacientes en el archivo
+                                    pacienteCRUD.updatePatientByName(nombrePacienteActualizar, pacienteAActualizar)
+
+                                    //pacienteCRUD.updatePatient(pacienteAActualizar, pacienteAActualizar)
                                 } else {
                                     println("No se encontró un paciente con ese nombre.")
                                 }
@@ -320,5 +332,5 @@ fun main() {
             else -> println("Opción inválida.")
         }
     }
-    println("¡Gracias por la Interacción!")
+    println("¡Muchas gracias por la Interacción! Saliendo del Sistema...")
 }

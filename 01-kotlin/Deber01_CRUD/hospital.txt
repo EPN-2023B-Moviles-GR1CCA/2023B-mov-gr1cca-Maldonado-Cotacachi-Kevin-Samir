@@ -1,1 +1,1 @@
-Hospital: Central, Capacidad: 11111, Ubicación: sss, Fundación: 1987-10-10, Público: true
+Hospital: Central, Capacidad: 1231, Ubicación: Calle Maldonado, Fundación: 1987-10-10, Público: true

@@ -11,7 +11,7 @@ data class Hospital(
     val dateFundation: LocalDate,
    // val services: List<String>,
     var isPublic: Boolean
-) : Serializable {
+) : Serializable {  //Para archivos
     override fun toString(): String {
         return "Hospital: $name, Capacidad: $capacityPatient, " +
                 "Ubicación: $ubication, Fundación: $dateFundation, Público: $isPublic"
