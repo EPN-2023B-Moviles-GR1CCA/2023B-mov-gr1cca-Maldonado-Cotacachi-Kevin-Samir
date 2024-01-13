@@ -18,8 +18,8 @@
 
     <ListView
         android:id="@+id/lv_list_view"
-        android:layout_width="391dp"
-        android:layout_height="706dp"
-        tools:layout_editor_absoluteX="146dp"
-        tools:layout_editor_absoluteY="-10dp" />
+        android:layout_width="232dp"
+        android:layout_height="620dp"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="94dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

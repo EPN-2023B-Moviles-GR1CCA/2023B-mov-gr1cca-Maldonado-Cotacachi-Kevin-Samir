@@ -7,12 +7,48 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="PADRE HOSPITAL!"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.084" />
+
+    <Button
+        android:id="@+id/id_padreHospital"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="CREAR"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <ListView
+        android:id="@+id/lv_list_view_Hospital"
+        android:layout_width="329dp"
+        android:layout_height="341dp"
+        android:layout_marginTop="108dp"
+        app:layout_constraintEnd_toEndOf="@+id/id_padreHospital"
+        app:layout_constraintStart_toStartOf="@+id/id_padreHospital"
+        app:layout_constraintTop_toBottomOf="@+id/id_padreHospital" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:text="Lista de Hospitales"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/id_padreHospital"
+        app:layout_constraintHorizontal_bias="0.446"
+        app:layout_constraintStart_toStartOf="@+id/id_padreHospital"
+        app:layout_constraintTop_toBottomOf="@+id/id_padreHospital" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
