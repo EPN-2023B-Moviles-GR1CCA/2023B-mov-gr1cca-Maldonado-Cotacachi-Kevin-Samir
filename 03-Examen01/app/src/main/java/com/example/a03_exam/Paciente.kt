@@ -8,7 +8,7 @@ class Paciente (
         var name: String?,
         var age: Int?,
         var gender: String?,
-        var dateAdmission: Date?,
+        var dateAdmission: Date,
         var weight: Double,
         var haveAllergies: Boolean?,
     ) {
@@ -18,6 +18,7 @@ class Paciente (
             val formattedDate = dateFormat.format(dateAdmission)
 
             return "Paciente(Id=$idPacient,name='$name', age=$age, gender='$gender', dateAdmission=$formattedDate, weight=$weight, haveAllergies=$haveAllergies)"
+
         }
 
 }
