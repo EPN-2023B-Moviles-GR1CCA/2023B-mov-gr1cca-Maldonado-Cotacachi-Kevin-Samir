@@ -127,7 +127,7 @@ import java.util.Date
 
 
      //Funcion Update
-     fun updateHospital(): Int {
+     /*fun updateHospital(): Int {
          val dbHelper: BaseDatos = BaseDatos(this.context)
          val db: SQLiteDatabase = dbHelper.writableDatabase
          val valoresAGuardar : ContentValues = ContentValues()
@@ -160,13 +160,59 @@ import java.util.Date
              db.close()
          }
      }
+      */
+     fun updateHospital(
+         nuevoNombre: String,
+         nuevaCapacidad: Int,
+         nuevaUbicacion: String,
+         nuevaFechaFundacion: String,
+         esPublico: Boolean
+     ): Int {
+         val dbHelper: BaseDatos = BaseDatos(this.context)
+         val db: SQLiteDatabase = dbHelper.writableDatabase
+
+         try {
+             // Crear un objeto ContentValues para almacenar los nuevos valores
+             val values = ContentValues()
+             values.put("nombre", nuevoNombre)
+             values.put("capacidad", nuevaCapacidad)
+             values.put("ubicacion", nuevaUbicacion)
+             values.put("fechaFundacion", nuevaFechaFundacion)
+             values.put("esPublico", esPublico)
+
+             // Actualizar el registro en la base de datos
+             val whereClause = "codigoHospital = ?"
+             val whereArgs = arrayOf(codigoHospital.toString())
+             val rowsAffected = db.update("t_hospital", values, whereClause, whereArgs)
+
+             if (rowsAffected > 0) {
+                 Log.d("ActualizarRegistro", "Registro actualizado en la Base de Datos con ID: $codigoHospital")
+             } else {
+                 Log.e("ActualizarRegistro", "Error al actualizar el registro en la Base de Datos")
+             }
+
+             return rowsAffected
+
+         } catch (e: Exception) {
+             Log.e("ActualizarRegistro", "Error al actualizar el registro en la Base de Datos", e)
+             return -1
+         } finally {
+             // Asegúrate de cerrar la base de datos después de usarla
+             db.close()
+         }
+     }
+
+
+
+
      // Obtener un hospital por su ID
      fun getHospitalById(id: Int): Hospital {
          val dbHelper: BaseDatos = BaseDatos(this.context)
          val db: SQLiteDatabase = dbHelper.writableDatabase
 
          // Crear un objeto Hospital para almacenar la información
-         var hospital = Hospital(null, "Raquel", 12, "Mas lejos de Guamani", "11-10-1987", false, this.context)
+        // var hospital = Hospital(null, "Raquel", 12, "Mas lejos de Guamani", "11-10-1987", false, this.context)
+         var hospital = Hospital(null, "", 0, "", "", null, this.context)
          var cursor: Cursor? = null
 
 

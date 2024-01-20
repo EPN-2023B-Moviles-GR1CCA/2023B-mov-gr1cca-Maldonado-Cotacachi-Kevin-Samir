@@ -46,9 +46,9 @@ class ActualizarfalloHospital : AppCompatActivity() {
             hospitalSeleccionado?.isPublic = esPublicoHospital
 
             // Llamar al método de actualización en la base de datos
-            try{
+            /*try{
                 Log.d("Actualizar_Hospital", "Antes de actualizar el hospital en la base de datos")
-                val resultado = hospitalSeleccionado?.updateHospital()
+               // val resultado = hospitalSeleccionado?.updateHospital()
                 Log.d("Actualizar_Hospital", "Después de actualizar el hospital en la base de datos")
 
                 if (resultado != null && resultado > 0) {
@@ -69,7 +69,7 @@ class ActualizarfalloHospital : AppCompatActivity() {
                 // Capturar y registrar cualquier excepción
                 Log.e("Actualizar_Hospital", "Error al actualizar el hospital", e)
                 Toast.makeText(this, "Error inesperado al actualizar el hospital", Toast.LENGTH_SHORT).show()
-            }
+            }*/
         }
 
     }

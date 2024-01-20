@@ -26,15 +26,19 @@ class MainActivity : AppCompatActivity() {
     private var adaptador: ArrayAdapter<String>? = null
     private lateinit var listView: ListView
     private var hospitales: MutableList<Hospital> = mutableListOf()
+    private val TU_CODIGO_DE_EDICION_HOSPITAL = 1 // Número único para la edición de hospitales
 
     private val iniciarRegistroActivityResult: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 // Actualizar el ListView con los datos del nuevo hospital
+                Log.d("MainActivity", "Cantidad de hospitales obtenidos: ${hospitales.size}")
+
                 showListViewHospitales()
             }
         }
 
+    /*
     private val actualizarHospitalActivityResult: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 
@@ -53,6 +57,7 @@ class MainActivity : AppCompatActivity() {
                // }
             }
         }
+     */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +81,22 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        Log.d("MainActivity", "onActivityResult - requestCode: $requestCode, resultCode: $resultCode")
+
+        if (requestCode == TU_CODIGO_DE_EDICION_HOSPITAL && resultCode == RESULT_OK) {
+            val idHospitalActualizado = data?.getIntExtra("idHospital", -1) ?: -1
+            Log.d("MainPaciente", "onActivityResult - idHospitalActualizado: $idHospitalActualizado")
+
+            // Actualizar la lista de hospitales
+            if (data?.getBooleanExtra("actualizacionRealizada", false) == true) {
+                showListViewHospitales()
+            }
+        }
+    }
 
     override fun onCreateContextMenu(
         menu: ContextMenu?,
@@ -124,15 +145,41 @@ class MainActivity : AppCompatActivity() {
             R.id.mi_editarHospital ->{
                 // Mostrar un Toast indicando que se seleccionó la opción de leer
                 Toast.makeText(this, "Seleccionaste Leer para el hospital en la posición: $idSeleccionado", Toast.LENGTH_SHORT).show()
+                // Obtener el hospital seleccionado
+                val hospitalSeleccionado = hospitales[idSeleccionado]
 
-                irActivida2(EditarHospital::class.java)
+                // Mostrar un Toast indicando que se seleccionó la opción de editar
+                Toast.makeText(
+                    this,
+                    "Seleccionaste Editar para el hospital: $hospitalSeleccionado",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                // Llamar a la función para abrir la actividad de edición con la información del hospital
+                abrirActividadEditarHospital(hospitalSeleccionado)
+
+               // irActivida2(EditarHospital::class.java)
+
+
                 return true
             }else -> super.onContextItemSelected(item)
 
         }
     }
 
+    private fun abrirActividadEditarHospital(hospital: Hospital) {
+        val intent = Intent(this, EditarHospital::class.java)
+        // Puedes agregar aquí todos los extras necesarios para la edición del hospital
+        intent.putExtra("idHospital", hospital.codigoHospital)
+        intent.putExtra("nombreHospital", hospital.name)
+        intent.putExtra("capacidad", hospital.capacityPatient)
+        intent.putExtra("ubicacion", hospital.ubication)
+        intent.putExtra("fechaFundacion", hospital.dateFoundation)
+        intent.putExtra("EsPublico", hospital.isPublic)
+        // Agrega otros extras según sea necesario
 
+        startActivityForResult(intent, TU_CODIGO_DE_EDICION_HOSPITAL)
+    }
 
     //Para mostrar la lista de hospitales
     private fun showListViewHospitales() {
@@ -226,12 +273,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun irActividadActualizar(clase: Class<*>) {
+    /*fun irActividadActualizar(clase: Class<*>) {
         val intent = Intent(this, clase)
         // Iniciar la actividad y esperar resultados usando el nuevo método
         actualizarHospitalActivityResult.launch(intent)
         //startActivity(intent)
-    }
+    }*/
 
     fun irActivida2(clase: Class<*>) {
         val intent = Intent(this, clase)
