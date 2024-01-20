@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_mainPaciente"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainPaciente">
+
+    <TextView
+        android:id="@+id/txt_HospitalPadre"
+        android:layout_width="162dp"
+        android:layout_height="78dp"
+        android:text="TextView"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.044" />
+
+    <Button
+        android:id="@+id/btn_VolverHospital"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="VOLVER"
+        app:layout_constraintEnd_toEndOf="@+id/btn_RegistrarPaciente"
+        app:layout_constraintHorizontal_bias="0.541"
+        app:layout_constraintStart_toStartOf="@+id/btn_RegistrarPaciente"
+        app:layout_constraintTop_toBottomOf="@+id/btn_RegistrarPaciente" />
+
+    <TextView
+        android:id="@+id/txt_ListaPacientes"
+        android:layout_width="177dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="52dp"
+        android:text="Lista de Pacientes"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_VolverHospital"
+        app:layout_constraintStart_toStartOf="@+id/btn_VolverHospital"
+        app:layout_constraintTop_toBottomOf="@+id/btn_VolverHospital" />
+
+    <Button
+        android:id="@+id/btn_RegistrarPaciente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="REGISTRAR"
+        app:layout_constraintEnd_toEndOf="@+id/txt_HospitalPadre"
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintStart_toStartOf="@+id/txt_HospitalPadre"
+        app:layout_constraintTop_toBottomOf="@+id/txt_HospitalPadre" />
+
+    <ListView
+        android:id="@+id/lv_listaPatient"
+        android:layout_width="211dp"
+        android:layout_height="267dp"
+        android:layout_marginTop="128dp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_VolverHospital"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="@+id/btn_VolverHospital"
+        app:layout_constraintTop_toBottomOf="@+id/btn_VolverHospital" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

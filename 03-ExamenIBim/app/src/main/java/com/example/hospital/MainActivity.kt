@@ -19,15 +19,38 @@ import androidx.appcompat.app.AlertDialog
 class MainActivity : AppCompatActivity() {
 
 
+    companion object{
+        var idSeleccionado = 0
+    }
 
     private var adaptador: ArrayAdapter<String>? = null
     private lateinit var listView: ListView
+    private var hospitales: MutableList<Hospital> = mutableListOf()
 
     private val iniciarRegistroActivityResult: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 // Actualizar el ListView con los datos del nuevo hospital
                 showListViewHospitales()
+            }
+        }
+
+    private val actualizarHospitalActivityResult: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+
+            if (result.resultCode == RESULT_OK) {
+                // Obtener el hospital actualizado del Intent
+                // val hospitalActualizado: Hospital? = data?.getParcelableExtra("hospitalActualizado")
+
+                Log.d("MainActivity", "actualizarHospitalActivityResult ejecutándose")
+
+                // Actualizar la lista solo si se recibió el hospital actualizado
+               // if (hospitalActualizado != null) {
+                    // Puedes utilizar el hospital actualizado según sea necesario
+                    // Aquí puedes hacer lo que necesites con el hospitalActualizado
+                Log.d("MainActivity", "Lista de hospitales actualizada")
+                showListViewHospitales()
+               // }
             }
         }
 
@@ -52,7 +75,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    var idSeleccionado = 0
+
 
     override fun onCreateContextMenu(
         menu: ContextMenu?,
@@ -74,27 +97,35 @@ class MainActivity : AppCompatActivity() {
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
-            R.id.mi_editarHospital ->{
-                val hospitalSeleccionado = adaptador?.getItem(idSeleccionado)
+            R.id.mi_LecturaHospital ->{
+               // val hospitalSeleccionado = adaptador?.getItem(idSeleccionado)
                 // Mostrar un Toast indicando que se seleccionó la opción de editar
+                val hospitalSeleccionado = hospitales[idSeleccionado]
+
                 Toast.makeText(this, "Seleccionaste Editar para el hospital: $hospitalSeleccionado", Toast.LENGTH_SHORT).show()
 
-                //Me enviara a una nueva activdad para acutalizar los datos o a la misma actividad registro
+                // Crear un Intent para abrir MainPaciente y pasar el ID y nombre del hospital
+                val intent = Intent(this, MainPaciente::class.java)
+                intent.putExtra("idHospital", hospitalSeleccionado.codigoHospital)
+                intent.putExtra("nombreHospital", hospitalSeleccionado.name)
+                Log.d("MainActivity", "ID del hospital seleccionado: ${hospitalSeleccionado.codigoHospital}, Nombre: ${hospitalSeleccionado.name}")
+
+                startActivity(intent)
+
                 return true
             } R.id.mi_EliminarHospital ->{
                 // Mostrar un Toast indicando que se seleccionó la opción de eliminar
                 Toast.makeText(this, "Seleccionaste Eliminar para el hospital en la posición: $idSeleccionado", Toast.LENGTH_SHORT).show()
                 //Agregar un dialogo aqui
 
-
                 abrirDialogoEliminar()
                 return true
             }
-            R.id.mi_leerHospitalverPacientes ->{
+            R.id.mi_editarHospital ->{
                 // Mostrar un Toast indicando que se seleccionó la opción de leer
                 Toast.makeText(this, "Seleccionaste Leer para el hospital en la posición: $idSeleccionado", Toast.LENGTH_SHORT).show()
 
-                //Me llevara a otra activddad
+                irActivida2(EditarHospital::class.java)
                 return true
             }else -> super.onContextItemSelected(item)
 
@@ -106,7 +137,7 @@ class MainActivity : AppCompatActivity() {
     //Para mostrar la lista de hospitales
     private fun showListViewHospitales() {
         val hospital = Hospital(null,"", 0, "", "", null, this)
-        val hospitales = hospital.obtenerTodosLosHospitales()
+         hospitales = hospital.obtenerTodosLosHospitales()
 
         if (adaptador == null) {
             // Crear el adaptador solo si aún no existe
@@ -144,10 +175,9 @@ class MainActivity : AppCompatActivity() {
                 Log.d("EliminarRegistro", "Lista actual de hospitales: ${adaptador?.count ?: 0}")
 
                 val padre = Hospital(null, "", null, "","", null,this)
-
                 val resultado = padre.deleteHospital(idSeleccionado)
-
                     if (resultado > 0) {
+
                         Log.d("EliminarRegistro", "Registro eliminado de la Base de Datos")
 
                         // Elimina el elemento del adaptador
@@ -193,6 +223,19 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, clase)
         // Iniciar la actividad y esperar resultados usando el nuevo método
         iniciarRegistroActivityResult.launch(intent)
+
+    }
+
+    fun irActividadActualizar(clase: Class<*>) {
+        val intent = Intent(this, clase)
+        // Iniciar la actividad y esperar resultados usando el nuevo método
+        actualizarHospitalActivityResult.launch(intent)
+        //startActivity(intent)
+    }
+
+    fun irActivida2(clase: Class<*>) {
+        val intent = Intent(this, clase)
+        startActivity(intent)
 
     }
 

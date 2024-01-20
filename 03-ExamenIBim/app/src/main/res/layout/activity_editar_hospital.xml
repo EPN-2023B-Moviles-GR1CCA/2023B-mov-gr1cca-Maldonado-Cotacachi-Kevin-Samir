@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_leerPaciente"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditarHospital">
+
+    <Button
+        android:id="@+id/btn_regresarMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ACTUALIZAR"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.439"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.862" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:text="Actualizar Hospital"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/input_nameUpdate"
+        app:layout_constraintEnd_toEndOf="@+id/input_nameUpdate"
+        app:layout_constraintStart_toStartOf="@+id/input_nameUpdate" />
+
+    <EditText
+        android:id="@+id/input_ubicUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
+        android:ems="10"
+        android:hint="Ubicacion"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/input_fundacionUpdate"
+        app:layout_constraintEnd_toEndOf="@+id/input_fundacionUpdate"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/input_fundacionUpdate" />
+
+    <EditText
+        android:id="@+id/input_nameUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:ems="10"
+        android:hint="Nombre"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/input_capacidadUpdate"
+        app:layout_constraintEnd_toEndOf="@+id/input_capacidadUpdate"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/input_capacidadUpdate" />
+
+    <EditText
+        android:id="@+id/input_capacidadUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:ems="10"
+        android:hint="Capacidad"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/input_ubicUpdate"
+        app:layout_constraintEnd_toEndOf="@+id/input_ubicUpdate"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/input_ubicUpdate" />
+
+    <EditText
+        android:id="@+id/input_fundacionUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:ems="10"
+        android:hint="Fundacion"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/input_estadoUpdate"
+        app:layout_constraintEnd_toEndOf="@+id/input_estadoUpdate"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/input_estadoUpdate" />
+
+    <EditText
+        android:id="@+id/input_estadoUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:ems="10"
+        android:hint="Es publico?"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/btn_regresarMain"
+        app:layout_constraintEnd_toEndOf="@+id/btn_regresarMain"
+        app:layout_constraintHorizontal_bias="0.384"
+        app:layout_constraintStart_toStartOf="@+id/btn_regresarMain" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

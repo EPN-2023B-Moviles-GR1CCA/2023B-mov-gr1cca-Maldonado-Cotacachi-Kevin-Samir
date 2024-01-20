@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.util.Log
+import java.io.Serializable
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.Date
@@ -16,13 +17,13 @@ import java.util.Date
     var ubication: String,
     var dateFoundation: String,
     var isPublic: Boolean?,
-    val context: Context
+    val context: Context,
 
-) {
+) : Serializable{
     // Método toString() para facilitar la visualización de datos
     override fun toString(): String {
        // return "Hospital( Id=$codigoHospital, Nombre='$name', Capacidad=$capacityPatient, Ubication='$ubication', Fundacion=$formattedDate, isPublic=$isPublic)"
-        return "Codigo='$codigoHospital'\nNombre='$name'\nCapacidad=$capacityPatient\nUbicación='$ubication'\nFundación=$dateFoundation\n¿Es público?=$isPublic"
+        return "Codigo='$codigoHospital'\nNombre='$name'\nCapacidad=$capacityPatient\nUbicación='$ubication'\nFundación=$dateFoundation\nEs público?=$isPublic"
 
     }
 
@@ -62,9 +63,7 @@ import java.util.Date
          val lista = ArrayList<Hospital>()
          var hospital: Hospital
          //var cursor: Cursor? = null
-         //cursor = db.rawQuery("SELECT * FROM t_hospital", null)
          var cursor: Cursor? = db.rawQuery("SELECT * FROM t_hospital", null)
-
 
         // Agrega este código para imprimir los nombres de las columnas
          if (cursor != null) {
@@ -93,15 +92,7 @@ import java.util.Date
          return lista
      }
 
-     //Funcion Delete
-     /*fun deleteHospital (id: Int): Int {
-         val dbHelper: BaseDatos = BaseDatos(this.context)
-         val db: SQLiteDatabase = dbHelper.writableDatabase
 
-         return db.delete("t_hospital", "codigoHospital=?", arrayOf(id.toString()))
-     }
-
-      */
      fun deleteHospital(id: Int): Int {
          val dbHelper: BaseDatos = BaseDatos(this.context)
          val db: SQLiteDatabase = dbHelper.writableDatabase
@@ -133,6 +124,92 @@ import java.util.Date
          }
      }
 
+
+
+     //Funcion Update
+     fun updateHospital(): Int {
+         val dbHelper: BaseDatos = BaseDatos(this.context)
+         val db: SQLiteDatabase = dbHelper.writableDatabase
+         val valoresAGuardar : ContentValues = ContentValues()
+
+         valoresAGuardar.put("nombre", name)
+         valoresAGuardar.put("capacidad", capacityPatient)
+         valoresAGuardar.put("ubicacion", ubication)
+         valoresAGuardar.put("fechaFundacion", dateFoundation)
+         valoresAGuardar.put("esPublico", isPublic)
+
+         return try {
+             val whereClause = "codigoHospital = ?"
+             val whereArgs = arrayOf(codigoHospital.toString())
+
+             val rowsAffected = db.update("t_hospital", valoresAGuardar, whereClause, whereArgs)
+
+             if (rowsAffected > 0) {
+                 Log.d("BaseDatos", "Éxito al actualizar en la base de datos. Filas afectadas: $rowsAffected")
+             } else {
+                 Log.d("BaseDatos", "La actualización no afectó ninguna fila. ¿La condición de selección es correcta?")
+             }
+
+             rowsAffected
+         } catch (e: Exception) {
+             e.printStackTrace()
+             Log.e("BaseDatos", "Error al actualizar en la base de datos: ${e.message}")
+             -1  // Retornar un valor que indique error
+         } finally {
+             // Asegurarse de cerrar la conexión a la base de datos
+             db.close()
+         }
+     }
+     // Obtener un hospital por su ID
+     fun getHospitalById(id: Int): Hospital {
+         val dbHelper: BaseDatos = BaseDatos(this.context)
+         val db: SQLiteDatabase = dbHelper.writableDatabase
+
+         // Crear un objeto Hospital para almacenar la información
+         var hospital = Hospital(null, "Raquel", 12, "Mas lejos de Guamani", "11-10-1987", false, this.context)
+         var cursor: Cursor? = null
+
+
+         try {
+             // Utilizar consulta parametrizada para prevenir inyección SQL
+             val query = "SELECT * FROM t_hospital WHERE codigoHospital = ?"
+             cursor = db.rawQuery(query, arrayOf(id.toString()))
+
+             // Verificar si se encontraron resultados y leer los datos
+             if (cursor.moveToFirst()) {
+                 hospital = Hospital(
+                     cursor.getString(0).toInt(),
+                     cursor.getString(1),
+                     cursor.getString(2).toInt(),
+                     cursor.getString(3),
+                     cursor.getString(4),
+                     cursor.getString(5) == "1",
+                     this.context
+                 )
+             }
+         } finally {
+             // Cerrar el cursor en un bloque finally
+             cursor?.close()
+         }
+         return hospital
+     }
+
+
+
+     // Función Update en la clase Hospital
+     fun actualizarHospital(): Int {
+         val dbHelper: BaseDatos = BaseDatos(this.context)
+         val db: SQLiteDatabase = dbHelper.writableDatabase
+         val values: ContentValues = ContentValues()
+
+         values.put("nombre", this.name)
+         values.put("capacidad", this.capacityPatient)
+         values.put("ubicacion", this.ubication)
+         values.put("fechaFundacion", this.dateFoundation)
+         values.put("esPublico", this.isPublic)
+
+         return db.update("t_hospital", values, "codigoHospital="+this.codigoHospital, null)
+     }
 
 
 

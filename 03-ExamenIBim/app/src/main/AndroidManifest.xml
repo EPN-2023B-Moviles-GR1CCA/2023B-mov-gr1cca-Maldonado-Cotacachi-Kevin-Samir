@@ -13,6 +13,21 @@
         android:theme="@style/Theme.Hospital"
         tools:targetApi="31">
         <activity
+            android:name=".EditarPaciente"
+            android:exported="false" />
+        <activity
+            android:name=".RegistroPaciente"
+            android:exported="false" />
+        <activity
+            android:name=".MainPaciente"
+            android:exported="false" />
+        <activity
+            android:name=".EditarHospital"
+            android:exported="false" />
+        <activity
+            android:name=".ActualizarfalloHospital"
+            android:exported="false" />
+        <activity
             android:name=".RegistroHospital"
             android:exported="false" />
         <activity

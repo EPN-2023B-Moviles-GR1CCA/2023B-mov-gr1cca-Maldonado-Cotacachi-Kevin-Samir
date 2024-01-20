@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_actualizarHospital"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActualizarfalloHospital">
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="220dp"
+        android:layout_height="39dp"
+        android:text="Actualizar Hospital"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.072" />
+
+    <EditText
+        android:id="@+id/input_ubicacionActualizar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="Ubicación"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/input_capacidadActualizar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/input_capacidadActualizar"
+        app:layout_constraintTop_toBottomOf="@+id/input_capacidadActualizar" />
+
+    <EditText
+        android:id="@+id/input_esPublicoActualizar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:ems="10"
+        android:hint="Es público?"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/input_fundacionActualizar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/input_fundacionActualizar"
+        app:layout_constraintTop_toBottomOf="@+id/input_fundacionActualizar" />
+
+    <EditText
+        android:id="@+id/input_capacidadActualizar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:ems="10"
+        android:hint="Capacidad"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/input_nombreActualizar"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/input_nombreActualizar"
+        app:layout_constraintTop_toBottomOf="@+id/input_nombreActualizar" />
+
+    <EditText
+        android:id="@+id/input_nombreActualizar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:ems="10"
+        android:hint="Nombre"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <EditText
+        android:id="@+id/input_fundacionActualizar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="Fecha de fundación"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/input_ubicacionActualizar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/input_ubicacionActualizar"
+        app:layout_constraintTop_toBottomOf="@+id/input_ubicacionActualizar" />
+
+    <Button
+        android:id="@+id/btn_ActualizarHospital"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="ACTUALIZAR"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/input_esPublicoActualizar"
+        app:layout_constraintStart_toStartOf="@+id/input_esPublicoActualizar"
+        app:layout_constraintTop_toBottomOf="@+id/input_esPublicoActualizar"
+        app:layout_constraintVertical_bias="0.076" />
+</androidx.constraintlayout.widget.ConstraintLayout>

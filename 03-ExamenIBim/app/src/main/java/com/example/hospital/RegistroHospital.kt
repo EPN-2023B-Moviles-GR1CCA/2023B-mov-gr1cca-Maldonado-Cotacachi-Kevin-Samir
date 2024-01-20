@@ -72,87 +72,11 @@ class RegistroHospital : AppCompatActivity() {
             }
         }
 
+
+
+
     }//Fin OnCreate
 
-    //Listar hospitales
-
-    /*
-    fun showListViewHospitales(){
-        val hospital_ = Hospital("",
-            null,"",
-            "",null,this
-        )
-        val listView = findViewById<ListView>(R.id.lv_listaHospitales)
-        val adaptador = ArrayAdapter(
-            this,
-            android.R.layout.simple_list_item_1,
-            hospital_.obtenerTodosLosHospitales()
-        )
-        //Actulizar la interfaz del Hospital es decir el listview
-        listView.adapter = adaptador
-        adaptador.notifyDataSetChanged()
-        registerForContextMenu(listView)
-    }
-    */
-
-
-/*
-    fun showListViewHospitales() {
-
-        val hospital = Hospital("", 0, "", "", null, this)
-
-        val listView = findViewById<ListView>(R.id.lv_listaHospitales)
-
-        val hospitales = hospital.obtenerTodosLosHospitales()
-
-        // Utilizar un adaptador personalizado si es necesario
-        val adaptador = ArrayAdapter(
-            this,
-            android.R.layout.simple_list_item_1,
-            hospitales.map { it.toString() }
-        )
-
-        listView.adapter = adaptador
-        registerForContextMenu(listView)
-    }*/
-
-
-
-    /*
-    fun showListViewHospitales() {
-
-        val hospital = Hospital("", 0, "", "", null, this)
-
-        val listView = findViewById<ListView>(R.id.lv_listaHospitales)
-
-        val hospitales = hospital.obtenerTodosLosHospitales()
-
-        if (adaptador == null) {
-            // Crear el adaptador solo si aún no existe
-            adaptador = ArrayAdapter(
-                this,
-                android.R.layout.simple_list_item_1,
-                hospitales.map { it.toString() }
-            )
-            listView.adapter = adaptador
-            registerForContextMenu(listView)
-
-        } else {
-            // Actualizar datos del adaptador existente
-            adaptador?.clear()
-            adaptador?.addAll(hospitales.map { it.toString() })
-            adaptador?.notifyDataSetChanged()
-        }
-    }
-
-     */
-
-
-    private fun volverAActividadPrincipal() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        //finish()  // Cierra la actividad actual para que no se acumulen en la pila de actividades
-    }
 
     fun mostrarSnackbar(texto:String){
         Snackbar
