@@ -181,19 +181,14 @@ class Paciente (
         }
     }
 
-
-    // Método toString() para facilitar la visualización de datos
     override fun toString(): String {
-        val salida=
-            "ID: ${idPacient}\n" +
-                    "Nombre: ${name}\n" +
-                    "Edad: ${age}\n " +
-                    "Fecha de ingreso: ${dateAdmission}\n" +
-                    "Peso: ${weight}\n " +
-                    "Alergias: ${alergias} \n"+
-                    "Codigo Hospital: ${codHospital}"
-
-        return salida
+        return "ID: $idPacient\nNombre: $name\nEdad: $age\nIngreso: $dateAdmission\nPeso: $weight\nAlergias: $alergias\nCodigo Hospital: $codHospital"
     }
+
+
+
+
+
+
 }
 

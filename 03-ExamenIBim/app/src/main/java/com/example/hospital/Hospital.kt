@@ -23,7 +23,7 @@ import java.util.Date
     // Método toString() para facilitar la visualización de datos
     override fun toString(): String {
        // return "Hospital( Id=$codigoHospital, Nombre='$name', Capacidad=$capacityPatient, Ubication='$ubication', Fundacion=$formattedDate, isPublic=$isPublic)"
-        return "Codigo='$codigoHospital'\nNombre='$name'\nCapacidad=$capacityPatient\nUbicación='$ubication'\nFundación=$dateFoundation\nEs público?=$isPublic"
+        return "Codigo: $codigoHospital\nNombre: $name\nCapacidad: $capacityPatient\nUbicación: $ubication\nFundación: $dateFoundation\nEstado público?: $isPublic"
 
     }
 
@@ -124,43 +124,6 @@ import java.util.Date
          }
      }
 
-
-
-     //Funcion Update
-     /*fun updateHospital(): Int {
-         val dbHelper: BaseDatos = BaseDatos(this.context)
-         val db: SQLiteDatabase = dbHelper.writableDatabase
-         val valoresAGuardar : ContentValues = ContentValues()
-
-         valoresAGuardar.put("nombre", name)
-         valoresAGuardar.put("capacidad", capacityPatient)
-         valoresAGuardar.put("ubicacion", ubication)
-         valoresAGuardar.put("fechaFundacion", dateFoundation)
-         valoresAGuardar.put("esPublico", isPublic)
-
-         return try {
-             val whereClause = "codigoHospital = ?"
-             val whereArgs = arrayOf(codigoHospital.toString())
-
-             val rowsAffected = db.update("t_hospital", valoresAGuardar, whereClause, whereArgs)
-
-             if (rowsAffected > 0) {
-                 Log.d("BaseDatos", "Éxito al actualizar en la base de datos. Filas afectadas: $rowsAffected")
-             } else {
-                 Log.d("BaseDatos", "La actualización no afectó ninguna fila. ¿La condición de selección es correcta?")
-             }
-
-             rowsAffected
-         } catch (e: Exception) {
-             e.printStackTrace()
-             Log.e("BaseDatos", "Error al actualizar en la base de datos: ${e.message}")
-             -1  // Retornar un valor que indique error
-         } finally {
-             // Asegurarse de cerrar la conexión a la base de datos
-             db.close()
-         }
-     }
-      */
      fun updateHospital(
          nuevoNombre: String,
          nuevaCapacidad: Int,

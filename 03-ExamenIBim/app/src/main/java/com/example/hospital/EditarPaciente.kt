@@ -80,13 +80,6 @@ class EditarPaciente : AppCompatActivity() {
                 if (resultado > 0) {
                     Toast.makeText(this, "Paciente actualizado correctamente", Toast.LENGTH_SHORT).show()
 
-                    // Puedes agregar lógica adicional aquí, como regresar a la actividad principal
-                    // o realizar otras acciones después de la actualización
-                    // Por ejemplo, regresar a la actividad MainPaciente:
-
-                    //HICE ESTO ULTIMO
-                    //val intent = Intent(this, MainPaciente::class.java)
-                    //startActivity(intent)
                     val intent = Intent()
                     intent.putExtra("idHospital", nuevoCodHospital)  // Ajusta esto según tus necesidades
                     intent.putExtra("actualizacionRealizada", true)

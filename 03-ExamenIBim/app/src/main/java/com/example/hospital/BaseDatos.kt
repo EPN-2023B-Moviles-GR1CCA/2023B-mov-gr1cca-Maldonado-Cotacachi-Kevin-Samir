@@ -13,7 +13,6 @@ class BaseDatos(context: Context) : SQLiteOpenHelper(
 ) {
 
     companion object {
-
        // val arrayHospital = arrayListOf<Hospital>()
         //val arrayPaciente = arrayListOf<Hospital>()
     }

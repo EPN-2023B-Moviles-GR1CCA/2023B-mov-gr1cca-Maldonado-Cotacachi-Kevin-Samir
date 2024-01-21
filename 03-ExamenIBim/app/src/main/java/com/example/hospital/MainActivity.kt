@@ -38,26 +38,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    /*
-    private val actualizarHospitalActivityResult: ActivityResultLauncher<Intent> =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-
-            if (result.resultCode == RESULT_OK) {
-                // Obtener el hospital actualizado del Intent
-                // val hospitalActualizado: Hospital? = data?.getParcelableExtra("hospitalActualizado")
-
-                Log.d("MainActivity", "actualizarHospitalActivityResult ejecutándose")
-
-                // Actualizar la lista solo si se recibió el hospital actualizado
-               // if (hospitalActualizado != null) {
-                    // Puedes utilizar el hospital actualizado según sea necesario
-                    // Aquí puedes hacer lo que necesites con el hospitalActualizado
-                Log.d("MainActivity", "Lista de hospitales actualizada")
-                showListViewHospitales()
-               // }
-            }
-        }
-     */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -272,13 +252,6 @@ class MainActivity : AppCompatActivity() {
         iniciarRegistroActivityResult.launch(intent)
 
     }
-
-    /*fun irActividadActualizar(clase: Class<*>) {
-        val intent = Intent(this, clase)
-        // Iniciar la actividad y esperar resultados usando el nuevo método
-        actualizarHospitalActivityResult.launch(intent)
-        //startActivity(intent)
-    }*/
 
     fun irActivida2(clase: Class<*>) {
         val intent = Intent(this, clase)
