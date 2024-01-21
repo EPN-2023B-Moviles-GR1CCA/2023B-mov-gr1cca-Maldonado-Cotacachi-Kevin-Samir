@@ -203,24 +203,4 @@ import java.util.Date
          return hospital
      }
 
-
-
-     // Función Update en la clase Hospital
-     fun actualizarHospital(): Int {
-         val dbHelper: BaseDatos = BaseDatos(this.context)
-         val db: SQLiteDatabase = dbHelper.writableDatabase
-         val values: ContentValues = ContentValues()
-
-         values.put("nombre", this.name)
-         values.put("capacidad", this.capacityPatient)
-         values.put("ubicacion", this.ubication)
-         values.put("fechaFundacion", this.dateFoundation)
-         values.put("esPublico", this.isPublic)
-
-         return db.update("t_hospital", values, "codigoHospital="+this.codigoHospital, null)
-     }
-
-
-
-
  }

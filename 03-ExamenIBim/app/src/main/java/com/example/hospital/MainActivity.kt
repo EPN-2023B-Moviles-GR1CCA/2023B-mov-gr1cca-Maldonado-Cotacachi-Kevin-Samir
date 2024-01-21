@@ -138,8 +138,6 @@ class MainActivity : AppCompatActivity() {
                 // Llamar a la función para abrir la actividad de edición con la información del hospital
                 abrirActividadEditarHospital(hospitalSeleccionado)
 
-               // irActivida2(EditarHospital::class.java)
-
 
                 return true
             }else -> super.onContextItemSelected(item)
@@ -188,7 +186,7 @@ class MainActivity : AppCompatActivity() {
     //Un dialogo para eliminar un registro de la lIsta
     fun abrirDialogoEliminar() {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("¿Desea eliminar este estudiante?")
+        builder.setTitle("¿Desea eliminar este Hospital?")
 
         builder.setPositiveButton("SI") { _, _ ->
             // Verificar que idSeleccionado esté dentro del rango válido
@@ -202,6 +200,7 @@ class MainActivity : AppCompatActivity() {
                 Log.d("EliminarRegistro", "Lista actual de hospitales: ${adaptador?.count ?: 0}")
 
                 val padre = Hospital(null, "", null, "","", null,this)
+
                 val resultado = padre.deleteHospital(idSeleccionado)
                     if (resultado > 0) {
 
@@ -253,10 +252,5 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun irActivida2(clase: Class<*>) {
-        val intent = Intent(this, clase)
-        startActivity(intent)
-
-    }
 
 }

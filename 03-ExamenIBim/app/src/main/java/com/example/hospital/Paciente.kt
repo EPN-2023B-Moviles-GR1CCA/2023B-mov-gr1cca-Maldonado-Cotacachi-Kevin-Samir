@@ -158,9 +158,6 @@ class Paciente (
             val whereClause = "idPaciente = ? AND codHospital = ?"
             val whereArgs = arrayOf(idPaciente.toString(), idHospital.toString())
 
-            //val whereClause = "idPaciente = ?"
-            //val whereArgs = arrayOf(idPaciente.toString())
-
             // Devuelve la cantidad de filas afectadas (debería ser 1 si se elimina correctamente)
             val rowsDeleted = db.delete("t_paciente", whereClause, whereArgs)
 

@@ -71,12 +71,7 @@ class RegistroHospital : AppCompatActivity() {
                 mostrarSnackbar("Error al guardar en la base de datos: ${e.message}")
             }
         }
-
-
-
-
     }//Fin OnCreate
-
 
     fun mostrarSnackbar(texto:String){
         Snackbar

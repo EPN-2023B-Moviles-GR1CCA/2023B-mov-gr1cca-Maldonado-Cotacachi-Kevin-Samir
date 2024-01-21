@@ -8,13 +8,11 @@ import java.util.Date
 
 
 class BaseDatos(context: Context) : SQLiteOpenHelper(
-    context, "Examen.db", null, 2
+    context, "Examen.db", null, 3
 
 ) {
 
     companion object {
-       // val arrayHospital = arrayListOf<Hospital>()
-        //val arrayPaciente = arrayListOf<Hospital>()
     }
 
 

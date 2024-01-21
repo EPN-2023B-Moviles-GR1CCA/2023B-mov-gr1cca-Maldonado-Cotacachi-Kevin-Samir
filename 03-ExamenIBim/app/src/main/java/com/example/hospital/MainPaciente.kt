@@ -56,7 +56,7 @@ class MainPaciente : AppCompatActivity() {
         val nombreHospital = intent.getStringExtra("nombreHospital") ?: "Nombre no encontrado"
         // Mostrar la información del hospital en el TextView
         val txtHospitalPadre = findViewById<TextView>(R.id.txt_HospitalPadre)
-        txtHospitalPadre.text = "RUC: ${idHospital} "+"Nombre: ${nombreHospital}"
+        txtHospitalPadre.text = "CODIGO DE HOSPITAL: ${idHospital} "+"\nNOMBRE: ${nombreHospital}"
 
 
         // Llamamos a showListViewPacientes() para mostrar la lista al iniciar la actividad
@@ -112,8 +112,6 @@ class MainPaciente : AppCompatActivity() {
         //agregue esto
         startActivityForResult(intent, TU_CODIGO_DE_EDICION)
 
-        //antes estaba esto
-        //startActivity(intent)
     }
 
 
@@ -174,7 +172,7 @@ class MainPaciente : AppCompatActivity() {
     // En tu MainActivity o MainPaciente, agregar una función genérica para eliminar registros
     fun abrirDialogoEliminar(idSeleccionado: Int, registro: Any) {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("¿Desea eliminar este registro?")
+        builder.setTitle("¿Desea eliminar este Paciente?")
 
         builder.setPositiveButton("SI") { _, _ ->
             // Verificar que idSeleccionado esté dentro del rango válido

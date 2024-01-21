@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="48dp"
-        android:text="Actualizar Hospital"
+        android:text="ACTUALIZAR HOSPITAL"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/input_nameUpdate"
         app:layout_constraintEnd_toEndOf="@+id/input_nameUpdate"
