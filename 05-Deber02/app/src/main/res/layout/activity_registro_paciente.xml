@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_registroPaciente"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegistroPaciente">
+
+    <TextView
+        android:id="@+id/txt_registrarPaciente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="REGISTRAR PACIENTE"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <Button
+        android:id="@+id/btn_crearPaciente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:text="REGISTRAR"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/input_codHospital"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="@+id/input_codHospital"
+        app:layout_constraintTop_toBottomOf="@+id/input_codHospital" />
+
+    <EditText
+        android:id="@+id/input_pesoPaciente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:ems="10"
+        android:hint="Peso"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/input_FechaAdmisionPaciente"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/input_FechaAdmisionPaciente"
+        app:layout_constraintTop_toBottomOf="@+id/input_FechaAdmisionPaciente" />
+
+    <EditText
+        android:id="@+id/input_edadPaciente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Edad"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/inputNombrePaciente"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/inputNombrePaciente"
+        app:layout_constraintTop_toBottomOf="@+id/inputNombrePaciente" />
+
+    <EditText
+        android:id="@+id/input_FechaAdmisionPaciente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="Fecha de Admision"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/input_edadPaciente"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/input_edadPaciente"
+        app:layout_constraintTop_toBottomOf="@+id/input_edadPaciente" />
+
+    <EditText
+        android:id="@+id/inputNombrePaciente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:ems="10"
+        android:hint="Nombre"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/txt_registrarPaciente"
+        app:layout_constraintStart_toStartOf="@+id/txt_registrarPaciente"
+        app:layout_constraintTop_toBottomOf="@+id/txt_registrarPaciente" />
+
+    <EditText
+        android:id="@+id/input_alergiasPaciente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="Sufre de Alergias?"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/input_pesoPaciente"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/input_pesoPaciente"
+        app:layout_constraintTop_toBottomOf="@+id/input_pesoPaciente" />
+
+    <EditText
+        android:id="@+id/input_codHospital"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:ems="10"
+        android:hint="Codigo Hospital"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/input_alergiasPaciente"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/input_alergiasPaciente"
+        app:layout_constraintTop_toBottomOf="@+id/input_alergiasPaciente" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
