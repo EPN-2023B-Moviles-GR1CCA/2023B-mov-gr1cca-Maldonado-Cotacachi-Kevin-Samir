@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".IFirestore">
+
+    <Button
+        android:id="@+id/btn_fs_crear"
+        android:layout_width="99dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="28dp"
+        android:text="CREAR"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_fs_ind_comp"
+        app:layout_constraintStart_toEndOf="@+id/btn_fs_ind_comp"
+        app:layout_constraintTop_toTopOf="@+id/btn_fs_ind_comp"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btn_fs_datos_prueba"
+        android:layout_width="101dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="96dp"
+        android:text="C. DATOS"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_fs_paginar"
+        android:layout_width="99dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="28dp"
+        android:text="PAGINAR"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_fs_epaginar"
+        app:layout_constraintStart_toEndOf="@+id/btn_fs_epaginar"
+        app:layout_constraintTop_toTopOf="@+id/btn_fs_epaginar"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btn_fs_eliminar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:text="ELIMINAR"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_fs_crear"
+        app:layout_constraintStart_toEndOf="@+id/btn_fs_crear"
+        app:layout_constraintTop_toTopOf="@+id/btn_fs_crear"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/btn_fs_odoc"
+        android:layout_width="96dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="36dp"
+        android:text="0. 1 DOC"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_fs_order_by"
+        app:layout_constraintStart_toEndOf="@+id/btn_fs_order_by"
+        app:layout_constraintTop_toTopOf="@+id/btn_fs_order_by"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btn_fs_ind_comp"
+        android:layout_width="105dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="44dp"
+        android:text="IN. COMP"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_fs_datos_prueba"
+        app:layout_constraintStart_toStartOf="@+id/btn_fs_datos_prueba"
+        app:layout_constraintTop_toBottomOf="@+id/btn_fs_datos_prueba" />
+
+    <Button
+        android:id="@+id/btn_fs_epaginar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:text="E. PAGINAR"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_fs_ind_comp"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/btn_fs_ind_comp"
+        app:layout_constraintTop_toBottomOf="@+id/btn_fs_ind_comp" />
+
+    <Button
+        android:id="@+id/btn_fs_order_by"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:text="ORDER BY"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_fs_datos_prueba"
+        app:layout_constraintStart_toEndOf="@+id/btn_fs_datos_prueba"
+        app:layout_constraintTop_toTopOf="@+id/btn_fs_datos_prueba"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ListView
+        android:id="@+id/lv_firestore"
+        android:layout_width="291dp"
+        android:layout_height="329dp"
+        android:layout_marginTop="224dp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_fs_odoc"
+        app:layout_constraintStart_toStartOf="@+id/btn_fs_datos_prueba"
+        app:layout_constraintTop_toBottomOf="@+id/btn_fs_order_by" />
+</androidx.constraintlayout.widget.ConstraintLayout>
