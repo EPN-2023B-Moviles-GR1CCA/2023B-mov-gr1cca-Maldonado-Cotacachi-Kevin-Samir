@@ -48,11 +48,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun sendUserToLoginActivity() {
-        val loginIntent = Intent(this, LoginActivity::class.java)
-        startActivity(loginIntent)
-        //finish() // Finaliza MainActivity para que no se pueda volver atrás después del inicio de sesión
-    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
@@ -70,12 +65,23 @@ class MainActivity : AppCompatActivity() {
             sendUserToLoginActivity()
         }
         if(item.itemId == R.id.main_settings_option){
-
+            sendUserToSettingsActivity()
         }
         if(item.itemId == R.id.main_find_friends_option){
 
         }
         return true
+    }
+
+    private fun sendUserToLoginActivity() {
+        val loginIntent = Intent(this, LoginActivity::class.java)
+        startActivity(loginIntent)
+        //finish() // Finaliza MainActivity para que no se pueda volver atrás después del inicio de sesión
+    }
+    private fun sendUserToSettingsActivity() {
+        val settingsIntent = Intent(this, SettingsActivity::class.java)
+        startActivity(settingsIntent)
+        //finish() // Finaliza MainActivity para que no se pueda volver atrás después del inicio de sesión
     }
 
 

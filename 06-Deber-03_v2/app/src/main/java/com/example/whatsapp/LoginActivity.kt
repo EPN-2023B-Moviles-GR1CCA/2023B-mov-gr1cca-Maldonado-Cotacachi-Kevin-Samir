@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseUser
 
 class LoginActivity : AppCompatActivity() {
 
-    private var currentUser: FirebaseUser? = null
+    //private var currentUser: FirebaseUser? = null
     private lateinit var mAuth: FirebaseAuth
     private lateinit var loadingBar: ProgressDialog
     private lateinit var LoginButton : Button
@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         mAuth = FirebaseAuth.getInstance()
-        currentUser = mAuth.currentUser
+        //currentUser = mAuth.currentUser
         initializeFields();
 
         NeedNewAccoutnLink.setOnClickListener {
@@ -86,7 +86,7 @@ class LoginActivity : AppCompatActivity() {
         loadingBar = ProgressDialog(this)
     }
 
-    override fun onStart() {
+    /*override fun onStart() {
         super.onStart()
 
         currentUser = FirebaseAuth.getInstance().currentUser
@@ -95,10 +95,13 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+     */
+
     private fun sendUserToMainActivity(){
-        val loginIntent = Intent(this, MainActivity::class.java)
-        startActivity(loginIntent)
-        //finish() // Finaliza LoginActivity para que no se pueda volver atrás después de iniciar sesión
+        val mainIntent = Intent(this, MainActivity::class.java)
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        startActivity(mainIntent)
+        finish() // Finaliza LoginActivity para que no se pueda volver atrás después de iniciar sesión
     }
 
     private fun sendUserToRegisterActivity(){
