@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "567466976568",
+    "project_id": "exameniib-74c97",
+    "storage_bucket": "exameniib-74c97.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:567466976568:android:955e6077f4e7f260d10dcd",
+        "android_client_info": {
+          "package_name": "com.example.hospital"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuprWQrzgmIskLVG_V9jtXN9azbFA4Bzs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
