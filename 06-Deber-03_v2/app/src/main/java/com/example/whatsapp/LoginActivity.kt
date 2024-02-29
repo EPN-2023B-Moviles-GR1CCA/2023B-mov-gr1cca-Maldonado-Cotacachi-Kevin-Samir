@@ -55,7 +55,6 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "Please enter password..", Toast.LENGTH_SHORT).show()
             return
         } else{
-
             loadingBar.setTitle("Sign in")
             loadingBar.setMessage("Please wait...")
             loadingBar.setCanceledOnTouchOutside(true)

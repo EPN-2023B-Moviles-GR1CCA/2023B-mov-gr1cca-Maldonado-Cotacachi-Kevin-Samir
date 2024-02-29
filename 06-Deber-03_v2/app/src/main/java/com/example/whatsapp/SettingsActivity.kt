@@ -29,7 +29,7 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         mAuth = FirebaseAuth.getInstance()
-        currentUserID = mAuth.currentUser?.uid ?: ""
+        currentUserID = mAuth.currentUser?.uid?: ""
         RootRef = FirebaseDatabase.getInstance().getReference()
         initializeFields();
 

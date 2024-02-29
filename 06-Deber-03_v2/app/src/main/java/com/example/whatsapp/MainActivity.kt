@@ -86,6 +86,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onCancelled(databaseError: DatabaseError) {
                     // Ocurrió un error al leer la base de datos
                     // Manejar el error aquí
+
                 }
             })
         }

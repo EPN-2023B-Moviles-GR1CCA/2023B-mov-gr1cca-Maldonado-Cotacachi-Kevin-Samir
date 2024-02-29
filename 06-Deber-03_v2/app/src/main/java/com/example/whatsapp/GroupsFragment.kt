@@ -1,5 +1,6 @@
 package com.example.whatsapp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -39,6 +40,7 @@ class GroupsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -58,6 +60,14 @@ class GroupsFragment : Fragment() {
 
         initializeFields()
         RetrieveAndDisplayGroups()
+
+        list_View.setOnItemClickListener { adapterView, view, position, id ->
+            val currentGroupName = adapterView.getItemAtPosition(position).toString()
+            val groupChatIntent = Intent(context,GroupChatActivity::class.java)
+            groupChatIntent.putExtra("groupName",currentGroupName)
+            startActivity(groupChatIntent)
+        }
+
         return groupFragmentView
     }
 
