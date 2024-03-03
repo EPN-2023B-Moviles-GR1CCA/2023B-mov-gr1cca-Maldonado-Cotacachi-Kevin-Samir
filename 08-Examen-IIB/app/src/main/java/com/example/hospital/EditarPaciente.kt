@@ -11,7 +11,6 @@ class EditarPaciente : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_editar_paciente)
-
         // Obtener la información del paciente de los extras del Intent
         val idPaciente = intent.getIntExtra("idPaciente", -1)
         val nombrePaciente = intent.getStringExtra("nombrePaciente") ?: ""
@@ -48,8 +47,6 @@ class EditarPaciente : AppCompatActivity() {
             val nuevasAlergias = editTextAlergias.text.toString()
             // Convertir el String a Boolean
             val tieneAlergias = nuevasAlergias == "1" //true
-
-
             val nuevoCodHospital = editTextCodHospital.text.toString().toIntOrNull() ?: 0
 
             // Validar que los campos requeridos no estén vacíos
@@ -62,32 +59,29 @@ class EditarPaciente : AppCompatActivity() {
                     nuevaFechaAdmision,
                     nuevoPeso,
                     tieneAlergias,
-                    nuevoCodHospital,
-                    this
+                    nuevoCodHospital
                 )
 
                 // Actualizar el paciente en la base de datos
-                val resultado = pacienteActualizado.updatePaciente(
-                    idPaciente,
+                pacienteActualizado.updatePaciente(
+                    idPaciente ?: -1,
                     nuevoNombre,
                     nuevaEdad,
                     nuevaFechaAdmision,
                     nuevoPeso,
                     tieneAlergias,
                     nuevoCodHospital
-                )
-
-                if (resultado > 0) {
-                    Toast.makeText(this, "Paciente actualizado correctamente", Toast.LENGTH_SHORT).show()
-
-                    val intent = Intent()
-                    intent.putExtra("idHospital", nuevoCodHospital)  // Ajusta esto según tus necesidades
-                    intent.putExtra("actualizacionRealizada", true)
-                    setResult(RESULT_OK, intent)
-
-                    finish()
-                } else {
-                    Toast.makeText(this, "Error al actualizar el paciente", Toast.LENGTH_SHORT).show()
+                ) { actualizado ->
+                    if (actualizado) {
+                        Toast.makeText(this, "Paciente actualizado correctamente", Toast.LENGTH_SHORT).show()
+                        val intent = Intent()
+                        intent.putExtra("idHospital", nuevoCodHospital)  // Ajusta esto según tus necesidades
+                        intent.putExtra("actualizacionRealizada", true)
+                        setResult(RESULT_OK, intent)
+                        finish()
+                    } else {
+                        Toast.makeText(this, "Error al actualizar el paciente", Toast.LENGTH_SHORT).show()
+                    }
                 }
             } else {
                 Toast.makeText(this, "Por favor, completa todos los campos requeridos", Toast.LENGTH_SHORT).show()

@@ -1,5 +1,6 @@
 package com.example.hospital
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,10 +13,6 @@ import com.google.android.material.snackbar.Snackbar
 
 class RegistroHospital : AppCompatActivity() {
 
-    private val hospital: Hospital by lazy {
-        Hospital(null,"", 0, "", "", null, this)
-    }
-    private var adaptador: ArrayAdapter<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +31,9 @@ class RegistroHospital : AppCompatActivity() {
             val inputEstadoHospital = findViewById<EditText>(R.id.input_estado).text.toString()
             val esPublicoHospital = inputEstadoHospital.equals("true", ignoreCase = true)
 
+            val nuevoId = Hospital.generateNewId()
             val padHospital = Hospital(
-                null,
+                nuevoId,
                 nombreHospital,
                 capacidadHospital,
                 ubicacionHospital,
@@ -43,32 +41,27 @@ class RegistroHospital : AppCompatActivity() {
                 esPublicoHospital, this
             )
 
-            val resultado = padHospital.crearHospital()
-            try {
-
-                if (resultado != -1L) {
-                    Log.d("RegistroHospital", "Hospital creado con éxito. ID del hospital: $resultado")
+            padHospital.crearHospital { isSuccess ->
+                if (isSuccess) {
+                    Log.d("RegistroHospital", "Hospital creado con éxito")
                     mostrarSnackbar("Hospital creado con éxito")
-                    // Crear un Intent para devolver datos a la actividad principal
-
-                    val intent = Intent()
-                    intent.putExtra("nombre", nombreHospital)
-                    intent.putExtra("capacidad", capacidadHospital)
-                    intent.putExtra("ubicacion", ubicacionHospital)
-                    intent.putExtra("fechaFundacion", fechaFundacionHospital)
-                    intent.putExtra("esPublico", esPublicoHospital)
-                    setResult(RESULT_OK, intent)
-
-                    finish()  // Cierra la actividad actual y vuelve a la actividad anterior
+                    // Puedes manejar otros casos de éxito aquí si es necesario
+                    // Obtener la lista actualizada de hospitales
+                    Hospital().obtenerTodosLosHospitales { listaHospitales ->
+                        // Agregar el nuevo hospital a la lista
+                        listaHospitales.add(padHospital)
+                        // Enviar la lista de hospitales de vuelta a MainActivity
+                        val intent = Intent()
+                        intent.putExtra("listaHospitales", listaHospitales)
+                        setResult(Activity.RESULT_OK, intent)
+                        finish()  // Cierra la actividad actual y vuelve a la actividad anterior
+                    }
 
                 } else {
+                    Log.e("RegistroHospital", "Error al crear el hospital")
                     mostrarSnackbar("Error al crear el hospital")
-                    // Puedes manejar el error de alguna manera si es necesario
+                    // Puedes manejar otros casos de error aquí si es necesario
                 }
-
-            } catch (e: Exception) {
-                Log.e("RegistroHospital", "Error al guardar en la base de datos: ${e.message}")
-                mostrarSnackbar("Error al guardar en la base de datos: ${e.message}")
             }
         }
     }//Fin OnCreate

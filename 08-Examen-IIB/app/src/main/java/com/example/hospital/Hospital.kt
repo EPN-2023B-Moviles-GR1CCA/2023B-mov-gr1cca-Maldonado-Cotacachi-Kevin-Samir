@@ -1,206 +1,275 @@
 package com.example.hospital
 
-import android.content.ContentValues
 import android.content.Context
-import android.database.Cursor
-import android.database.sqlite.SQLiteDatabase
+import android.os.Parcel
+import android.os.Parcelable
 import android.util.Log
-import java.io.Serializable
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.util.Date
+import com.google.firebase.firestore.FirebaseFirestore
+
 
  class Hospital (
-    var codigoHospital: Int?,
-    var name: String?,
-    var capacityPatient: Int?,
-    var ubication: String,
-    var dateFoundation: String,
-    var isPublic: Boolean?,
-    val context: Context,
+     var codigoHospital: Int?,
+     var name: String?,
+     var capacityPatient: Int?,
+     var ubication: String?,
+     var dateFoundation: String?,
+     var isPublic: Boolean?,
+     val context: Context?,
+     ) : Parcelable {
 
-) : Serializable{
-    // Método toString() para facilitar la visualización de datos
-    override fun toString(): String {
-       // return "Hospital( Id=$codigoHospital, Nombre='$name', Capacidad=$capacityPatient, Ubication='$ubication', Fundacion=$formattedDate, isPublic=$isPublic)"
-        return "Codigo: $codigoHospital\nNombre: $name\nCapacidad: $capacityPatient\nUbicación: $ubication\nFundación: $dateFoundation\nEstado público?: $isPublic"
+     companion object {
+         private const val TAG = "Hospital"
+         private var lastUsedId = 0
 
-    }
-
-     fun crearHospital(): Long {
-        val dbHelper: BaseDatos = BaseDatos(this.context)
-        val db: SQLiteDatabase = dbHelper.writableDatabase
-
-        val valoresAGuardar : ContentValues= ContentValues()
-
-        valoresAGuardar.put("codigoHospital", codigoHospital)  // Nuevo campo
-        valoresAGuardar.put("nombre",name )
-        valoresAGuardar.put("capacidad", capacityPatient)
-        valoresAGuardar.put("ubicacion", ubication)
-        valoresAGuardar.put("fechaFundacion", dateFoundation)
-        valoresAGuardar.put("esPublico", isPublic)
-
-        return try {
-            db.insert("t_hospital", null, valoresAGuardar)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Log.e("BaseDatos", "Error al insertar en la base de datos: ${e.message}")
-            -1  // Retornar un valor que indique error
-        } finally {
-            // Asegurarse de cerrar la conexión a la base de datos
-            db.close()
-        }
-
-
-    }
-
-
-     // Función para obtener todos los hospitales
-     fun obtenerTodosLosHospitales(): ArrayList<Hospital> {
-         val dbHelper: BaseDatos = BaseDatos(this.context)
-         val db: SQLiteDatabase = dbHelper.readableDatabase
-
-         val lista = ArrayList<Hospital>()
-         var hospital: Hospital
-         //var cursor: Cursor? = null
-         var cursor: Cursor? = db.rawQuery("SELECT * FROM t_hospital", null)
-
-        // Agrega este código para imprimir los nombres de las columnas
-         if (cursor != null) {
-             val columnNames = cursor.columnNames
-             Log.d("ColumnNames", "Column names: ${columnNames.joinToString()}")
-         }
-         if (cursor != null && cursor.moveToFirst()) {
-             do {
-
-                 hospital = Hospital(null,"", 0, "", "", null, context)
-
-
-                 hospital.codigoHospital = cursor.getString(0).toInt()
-                 hospital.name = cursor.getString(1)
-                 hospital.capacityPatient = cursor.getString(2).toInt()
-                 hospital.ubication = cursor.getString(3)
-                 hospital.dateFoundation = cursor.getString(4)
-                 hospital.isPublic = cursor.getString(5) == "1"
-
-                 lista.add(hospital)
-
-             } while (cursor.moveToNext())
+         // Método para generar un nuevo ID único para un hospital
+         fun generateNewId(): Int {
+             lastUsedId++
+             return lastUsedId
          }
 
-         cursor?.close()
-         return lista
-     }
-
-
-     fun deleteHospital(id: Int): Int {
-         val dbHelper: BaseDatos = BaseDatos(this.context)
-         val db: SQLiteDatabase = dbHelper.writableDatabase
-
-         try {
-             // Obtener el hospital a partir de su posición en la lista
-             val hospital = obtenerTodosLosHospitales()[id]
-             val codigoHospital = hospital.codigoHospital
-
-             val whereClause = "codigoHospital = ?"
-             val whereArgs = arrayOf(codigoHospital.toString())
-             // Devuelve la cantidad de filas afectadas (debería ser 1 si se elimina correctamente)
-             val rowsDeleted = db.delete("t_hospital", whereClause, whereArgs)
-
-             return if (rowsDeleted > 0) {
-                 Log.d("EliminarRegistro", "Registro eliminado de la Base de Datos con ID: $codigoHospital")
-                 rowsDeleted
-             } else {
-                 Log.e("EliminarRegistro", "Error al eliminar el registro de la Base de Datos")
-                 -1
+         @JvmField
+         val CREATOR: Parcelable.Creator<Hospital> = object : Parcelable.Creator<Hospital> {
+             override fun createFromParcel(parcel: Parcel): Hospital {
+                 return Hospital(parcel)
              }
 
-         } catch (e: Exception) {
-             Log.e("EliminarRegistro", "Error al eliminar el registro de la Base de Datos", e)
-             return -1
-         } finally {
-             // Asegúrate de cerrar la base de datos después de usarla
-             db.close()
+             override fun newArray(size: Int): Array<Hospital?> {
+                 return arrayOfNulls(size)
+             }
          }
+
+     }
+     override fun toString(): String {
+         // Construir una cadena con la información del hospital
+         return "Hospital: $name\nCapacidad: $capacityPatient\nUbicación: $ubication\nFecha de Fundación: $dateFoundation\nEs Público: ${if (isPublic == true) "Sí" else "No"}"
+     }
+     // Implementación de Parcelable
+     constructor(parcel: Parcel) : this(
+         parcel.readInt(),
+         parcel.readString(),
+         parcel.readInt(),
+         parcel.readString(),
+         parcel.readString(),
+         parcel.readByte() != 0.toByte(),
+         null
+     )
+
+     override fun writeToParcel(parcel: Parcel, flags: Int) {
+         parcel.writeInt(codigoHospital ?: -1)
+         parcel.writeString(name)
+         parcel.writeInt(capacityPatient ?: -1)
+         parcel.writeString(ubication)
+         parcel.writeString(dateFoundation)
+         parcel.writeByte(if (isPublic == true) 1 else 0)
      }
 
+     override fun describeContents(): Int {
+         return 0
+     }
+
+
+     // Constructor vacío necesario para Firestore
+     constructor() : this(null, null, null, null, null, null,null)
+
+
+     // Método para insertar un hospital en Firestore
+     fun crearHospital(callback: (Boolean) -> Unit) {
+         val db = FirebaseFirestore.getInstance()
+         val hospital = hashMapOf(
+             "codigoHospital" to this.codigoHospital,
+             "nombre" to this.name,
+             "capacidad" to this.capacityPatient,
+             "ubicacion" to this.ubication,
+             "fechaFundacion" to this.dateFoundation,
+             "esPublico" to this.isPublic
+         )
+
+         db.collection("hospitales")
+             .add(hospital)
+             .addOnSuccessListener { documentReference ->
+                 Log.d(TAG, "Hospital agregado con ID: ${documentReference.id}")
+                 callback(true)
+             }
+             .addOnFailureListener { e ->
+                 Log.w(TAG, "Error al agregar hospital", e)
+                 callback(false)
+             }
+     }
+
+
+     // Función para obtener todos los hospitales desde Firestore
+     /*fun obtenerTodosLosHospitales(callback: (ArrayList<Hospital>) -> Unit) {
+         val db = FirebaseFirestore.getInstance()
+         db.collection("hospitales")
+             .get()
+             .addOnSuccessListener { result ->
+                 val lista = ArrayList<Hospital>()
+                 for (document in result) {
+                     val hospital = Hospital(
+                         document["codigoHospital"] as Int?,
+                         document["nombre"] as String?,
+                         document["capacidad"] as Int?,
+                         document["ubicacion"] as String?,
+                         document["fechaFundacion"] as String?,
+                         document["esPublico"] as Boolean?,
+                         context
+                     )
+                     lista.add(hospital)
+                 }
+                 callback(lista)
+             }
+             .addOnFailureListener { exception ->
+                 Log.w(TAG, "Error al obtener hospitales", exception)
+                 callback(ArrayList())
+             }
+     }*/
+
+     // Función para obtener todos los hospitales desde Firestore
+     fun obtenerTodosLosHospitales(callback: (ArrayList<Hospital>) -> Unit) {
+         val db = FirebaseFirestore.getInstance()
+         db.collection("hospitales")
+             .get()
+             .addOnSuccessListener { result ->
+                 val lista = ArrayList<Hospital>()
+                 for (document in result) {
+                     val codigoHospital = document["codigoHospital"] as? Int
+                     val nombre = document["nombre"] as String?
+                     val capacidad = (document["capacidad"] as Long).toInt()
+                     val ubicacion = document["ubicacion"] as String?
+                     val fechaFundacion = document["fechaFundacion"] as String?
+                     val esPublico = document["esPublico"] as Boolean?
+
+                     val hospital = Hospital(
+                         codigoHospital,
+                         nombre,
+                         capacidad,
+                         ubicacion,
+                         fechaFundacion,
+                         esPublico,
+                         context
+                     )
+                     lista.add(hospital)
+                 }
+                 callback(lista)
+             }
+             .addOnFailureListener { exception ->
+                 Log.w(TAG, "Error al obtener hospitales", exception)
+                 callback(ArrayList())
+             }
+     }
+
+
+     // Función para eliminar un hospital desde Firestore
+     fun deleteHospital(id: Int, callback: (Boolean) -> Unit) {
+         val db = FirebaseFirestore.getInstance()
+
+         db.collection("hospitales")
+             .whereEqualTo("codigoHospital", id)
+             .get()
+             .addOnSuccessListener { result ->
+                 if (!result.isEmpty) {
+                     for (document in result) {
+                         db.collection("hospitales")
+                             .document(document.id)
+                             .delete()
+                             .addOnSuccessListener {
+                                 Log.d(TAG, "Hospital eliminado con ID: ${document.id}")
+                                 callback(true)
+                             }
+                             .addOnFailureListener { exception ->
+                                 Log.w(TAG, "Error al eliminar hospital", exception)
+                                 callback(false)
+                             }
+                         return@addOnSuccessListener
+                     }
+                 } else {
+                     Log.d(TAG, "No se encontró ningún hospital con ID: $id")
+                     callback(false)
+                 }
+             }
+             .addOnFailureListener { exception ->
+                 Log.w(TAG, "Error al buscar hospital", exception)
+                 callback(false)
+             }
+     }
+
+     // Función para actualizar un hospital en Firestore
      fun updateHospital(
          nuevoNombre: String,
          nuevaCapacidad: Int,
          nuevaUbicacion: String,
          nuevaFechaFundacion: String,
-         esPublico: Boolean
-     ): Int {
-         val dbHelper: BaseDatos = BaseDatos(this.context)
-         val db: SQLiteDatabase = dbHelper.writableDatabase
+         esPublico: Boolean,
+         callback: (Boolean) -> Unit
+     ) {
+         val db = FirebaseFirestore.getInstance()
+         db.collection("hospitales")
+             .whereEqualTo("codigoHospital", codigoHospital)
+             .get()
+             .addOnSuccessListener { result ->
+                 if (!result.isEmpty) {
+                     for (document in result) {
+                         val data = hashMapOf(
+                             "nombre" to nuevoNombre,
+                             "capacidad" to nuevaCapacidad,
+                             "ubicacion" to nuevaUbicacion,
+                             "fechaFundacion" to nuevaFechaFundacion,
+                             "esPublico" to esPublico
+                         )
 
-         try {
-             // Crear un objeto ContentValues para almacenar los nuevos valores
-             val values = ContentValues()
-             values.put("nombre", nuevoNombre)
-             values.put("capacidad", nuevaCapacidad)
-             values.put("ubicacion", nuevaUbicacion)
-             values.put("fechaFundacion", nuevaFechaFundacion)
-             values.put("esPublico", esPublico)
-
-             // Actualizar el registro en la base de datos
-             val whereClause = "codigoHospital = ?"
-             val whereArgs = arrayOf(codigoHospital.toString())
-             val rowsAffected = db.update("t_hospital", values, whereClause, whereArgs)
-
-             if (rowsAffected > 0) {
-                 Log.d("ActualizarRegistro", "Registro actualizado en la Base de Datos con ID: $codigoHospital")
-             } else {
-                 Log.e("ActualizarRegistro", "Error al actualizar el registro en la Base de Datos")
+                         db.collection("hospitales")
+                             .document(document.id)
+                             .update(data as Map<String, Any>)
+                             .addOnSuccessListener {
+                                 Log.d(TAG, "Hospital actualizado con ID: ${document.id}")
+                                 callback(true)
+                             }
+                             .addOnFailureListener { exception ->
+                                 Log.w(TAG, "Error al actualizar hospital", exception)
+                                 callback(false)
+                             }
+                         return@addOnSuccessListener
+                     }
+                 } else {
+                     Log.d(TAG, "No se encontró ningún hospital con ID: $codigoHospital")
+                     callback(false)
+                 }
              }
-
-             return rowsAffected
-
-         } catch (e: Exception) {
-             Log.e("ActualizarRegistro", "Error al actualizar el registro en la Base de Datos", e)
-             return -1
-         } finally {
-             // Asegúrate de cerrar la base de datos después de usarla
-             db.close()
-         }
+             .addOnFailureListener { exception ->
+                 Log.w(TAG, "Error al buscar hospital", exception)
+                 callback(false)
+             }
      }
 
+     // Función para obtener un hospital por su ID desde Firestore
+     fun getHospitalById(id: Int, callback: (Hospital?) -> Unit) {
+         val db = FirebaseFirestore.getInstance()
 
-
-
-     // Obtener un hospital por su ID
-     fun getHospitalById(id: Int): Hospital {
-         val dbHelper: BaseDatos = BaseDatos(this.context)
-         val db: SQLiteDatabase = dbHelper.writableDatabase
-
-         // Crear un objeto Hospital para almacenar la información
-        // var hospital = Hospital(null, "Raquel", 12, "Mas lejos de Guamani", "11-10-1987", false, this.context)
-         var hospital = Hospital(null, "", 0, "", "", null, this.context)
-         var cursor: Cursor? = null
-
-
-         try {
-             // Utilizar consulta parametrizada para prevenir inyección SQL
-             val query = "SELECT * FROM t_hospital WHERE codigoHospital = ?"
-             cursor = db.rawQuery(query, arrayOf(id.toString()))
-
-             // Verificar si se encontraron resultados y leer los datos
-             if (cursor.moveToFirst()) {
-                 hospital = Hospital(
-                     cursor.getString(0).toInt(),
-                     cursor.getString(1),
-                     cursor.getString(2).toInt(),
-                     cursor.getString(3),
-                     cursor.getString(4),
-                     cursor.getString(5) == "1",
-                     this.context
-                 )
+         db.collection("hospitales")
+             .whereEqualTo("codigoHospital", id)
+             .get()
+             .addOnSuccessListener { result ->
+                 if (!result.isEmpty) {
+                     for (document in result) {
+                         val hospital = Hospital(
+                             document["codigoHospital"] as Int?,
+                             document["nombre"] as String?,
+                             document["capacidad"] as Int?,
+                             document["ubicacion"] as String?,
+                             document["fechaFundacion"] as String?,
+                             document["esPublico"] as Boolean?,
+                             this.context
+                         )
+                         callback(hospital)
+                         return@addOnSuccessListener
+                     }
+                 }
+                 callback(null)
              }
-         } finally {
-             // Cerrar el cursor en un bloque finally
-             cursor?.close()
-         }
-         return hospital
+             .addOnFailureListener { exception ->
+                 Log.w(TAG, "Error al obtener hospital por ID", exception)
+                 callback(null)
+             }
      }
 
  }

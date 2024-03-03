@@ -1,5 +1,6 @@
 package com.example.hospital
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,18 +11,6 @@ import com.google.android.material.snackbar.Snackbar
 
 class RegistroPaciente : AppCompatActivity() {
 
-    private val paciente: Paciente by lazy {
-        Paciente(
-            null,
-            "",
-            0,
-            "",
-            0,
-            null,
-            0,
-            this
-        )
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro_paciente)
@@ -33,57 +22,47 @@ class RegistroPaciente : AppCompatActivity() {
                 Log.d("RegistroPaciente", "Botón Guardar Presionado")
 
                 val nombrePaciente = findViewById<EditText>(R.id.inputNombrePaciente).text.toString()
-                val edadPaciente = findViewById<EditText>(R.id.input_edadPaciente).text.toString().toInt()
-                val fechaAdmisionPaciente =
-                    findViewById<EditText>(R.id.input_FechaAdmisionPaciente).text.toString()
-                val pesoPaciente = findViewById<EditText>(R.id.input_pesoPaciente).text.toString().toInt()
-                val inputAlergiasPaciente =
-                    findViewById<EditText>(R.id.input_alergiasPaciente).text.toString()
+                val edadPaciente = findViewById<EditText>(R.id.input_edadPaciente).text.toString().toIntOrNull()
+                val fechaAdmisionPaciente = findViewById<EditText>(R.id.input_FechaAdmisionPaciente).text.toString()
+                val pesoPaciente = findViewById<EditText>(R.id.input_pesoPaciente).text.toString().toIntOrNull()
+                val inputAlergiasPaciente = findViewById<EditText>(R.id.input_alergiasPaciente).text.toString()
                 val tieneAlergiasPaciente = inputAlergiasPaciente.equals("true", ignoreCase = true)
-                val codHospitalPaciente =
-                    findViewById<EditText>(R.id.input_codHospital).text.toString().toInt()
+                val codHospitalPaciente = findViewById<EditText>(R.id.input_codHospital).text.toString().toIntOrNull()
+
+
+                if (nombrePaciente.isBlank() || edadPaciente == null || pesoPaciente == null || codHospitalPaciente == null) {
+                    mostrarSnackbar("Por favor, complete todos los campos correctamente.")
+                    return@setOnClickListener
+                }
 
                 val nuevoPaciente = Paciente(
-                    null,
+                    Paciente.generateNewId(), // Usando el nuevo método para generar un ID único
                     nombrePaciente,
                     edadPaciente,
                     fechaAdmisionPaciente,
                     pesoPaciente,
                     tieneAlergiasPaciente,
                     codHospitalPaciente,
-                    this
                 )
-                try {
-                    Log.d("RegistroPaciente", "Antes de crear el paciente.")
-                    val resultado = nuevoPaciente.crearPaciente()
-                    Log.d("RegistroPaciente", "Después de crear el paciente. ID del paciente: $resultado")
 
-                    if (resultado != -1L) {
-                        Log.d("RegistroPaciente", "Paciente creado con éxito. ID del paciente: $resultado")
-                        mostrarSnackbar("Paciente creado con éxito")
-                        // Crear un Intent para devolver datos a la actividad principal
+                nuevoPaciente.crearPaciente { isSuccess ->
+                    if (isSuccess) {
+                        Log.d("RegistroPaciente", "Paciente creado con éxito")
+                        Paciente().obtenerTodosLosPacientes(codHospitalPaciente) { listaPacientes ->
 
-                        val intent = Intent()
-                        intent.putExtra("nombre", nombrePaciente)
-                        intent.putExtra("edad", edadPaciente)
-                        intent.putExtra("fechaAdmision", fechaAdmisionPaciente)
-                        intent.putExtra("peso", pesoPaciente)
-                        intent.putExtra("tieneAlergias", tieneAlergiasPaciente)
-                        intent.putExtra("codHospital", codHospitalPaciente)
-                        setResult(RESULT_OK, intent)
+                            listaPacientes.add(nuevoPaciente)
 
-                        finish()  // Cierra la actividad actual y vuelve a la actividad anterior
-
+                            // Enviar la lista de pacientes de vuelta a MainActivity
+                            val intent = Intent()
+                            intent.putExtra("listaPacientes", listaPacientes)
+                            setResult(Activity.RESULT_OK, intent)
+                            finish()  // Cierra la actividad actual y vuelve a la actividad anterior
+                        }
                     } else {
+                        Log.e("RegistroPaciente", "Error al crear el paciente")
                         mostrarSnackbar("Error al crear el paciente")
-                        // Puedes manejar el error de alguna manera si es necesario
+                        // Puedes manejar otros casos de error aquí si es necesario
                     }
-
-                } catch (e: Exception) {
-                    Log.e("RegistroPaciente", "Error al guardar en la base de datos: ${e.message}")
-                    mostrarSnackbar("Error al guardar en la base de datos: ${e.message}")
-                    e.printStackTrace()
-
                 }
             }
     }
