@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">UBER-CLIENTE-PROYECTO</string>
+    <string name="google_maps_key">AIzaSyCiAxdwAcFx24N7vMSCIvE8vmE7OJtueTo</string>
+    <string name="default_notification_channel_id">fcm_default_channel</string>
+</resources>
